@@ -12,6 +12,7 @@ import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -35,7 +36,8 @@ public class Usuario implements UserDetails, Principal {
 
     private String password;
 
-    // private List<Rol> roles;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Rol> roles;
 
     // @CreatedDate
     // @Column(nullable = false, updatable = false)
