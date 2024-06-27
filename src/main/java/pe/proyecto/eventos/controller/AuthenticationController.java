@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pe.proyecto.eventos.entity.AuthenticationRequest;
+import pe.proyecto.eventos.entity.AuthenticationResponse;
 import pe.proyecto.eventos.entity.RegistrationRequest;
 import pe.proyecto.eventos.service.AuthenticationService;
 
@@ -22,5 +24,10 @@ public class AuthenticationController {
         authenticationService.registro(request);
 
         return ResponseEntity.accepted().build();
+    }
+
+    @PostMapping("/authenticate")
+    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody @Valid AuthenticationRequest request){
+        return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 }
