@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.proyecto.eventos.entity.AuthenticationRequest;
 import pe.proyecto.eventos.entity.AuthenticationResponse;
@@ -30,4 +31,17 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody @Valid AuthenticationRequest request){
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
+
+    /*
+    @GetMapping({"/forAdmin"})
+    @PreAuthorize("hasRole('ADMIN')")
+    public String forAdmin(){
+        return "Esta URL solo es accesible para el administrador";
+    }
+
+    @GetMapping({"/forUser"})
+    @PreAuthorize("hasRole('USER')")
+    public String forUser(){
+        return "Esta URL sólo es accesible para el usuario.";
+    }*/
 }

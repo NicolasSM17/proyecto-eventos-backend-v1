@@ -19,12 +19,13 @@ public class Rol {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(unique = true)
+    //@Column(unique = true)
     private String nombre;
 
+    /*
     @ManyToMany(mappedBy = "roles")
     @JsonIgnore
-    private List<Usuario> usuarios;
+    private List<Usuario> usuarios;*/
 
     // @CreatedDate
     // @Column(nullable = false, updatable = false)
