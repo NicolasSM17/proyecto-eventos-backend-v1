@@ -15,6 +15,7 @@ import pe.proyecto.eventos.service.AuthenticationService;
 @RestController
 @RequestMapping("auth")
 @RequiredArgsConstructor
+@CrossOrigin
 @Tag(name = "Authentication")
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
