@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IEventosService {
     List<Evento> listar();
-    Evento buscarPorId(Integer id);
+    Evento buscarPorId(Long id);
     Evento agregar(Evento evento);
     Evento actualizar(Long id, Evento evento);
     void eliminar(Long id);
