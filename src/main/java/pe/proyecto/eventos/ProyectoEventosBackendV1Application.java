@@ -17,11 +17,17 @@ public class ProyectoEventosBackendV1Application {
 	}
 
 	@Bean
-	public CommandLineRunner runner(IRolRepository rolRepository){
+	public CommandLineRunner runner(IRolRepository rolRepository) {
 		return args -> {
-			if(rolRepository.findByNombre("USER").isEmpty()){
-				rolRepository.save(Rol.builder().nombre("USER").build());
-			}
+			createRoleIfNotFound(rolRepository, "USER");
+			createRoleIfNotFound(rolRepository, "ADMIN");
+			createRoleIfNotFound(rolRepository, "ORGANIZADOR");
 		};
+	}
+
+	private void createRoleIfNotFound(IRolRepository rolRepository, String roleName) {
+		if (rolRepository.findByNombre(roleName).isEmpty()) {
+			rolRepository.save(Rol.builder().nombre(roleName).build());
+		}
 	}
 }

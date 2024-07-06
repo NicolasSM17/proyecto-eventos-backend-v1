@@ -43,6 +43,9 @@ public class Usuario implements UserDetails, Principal {
             inverseJoinColumns = {@JoinColumn(name = "ROLE_ID")})
     private List<Rol> roles;
 
+    @OneToMany(mappedBy = "organizador", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Evento> eventosOrganizados;
+
     // @CreatedDate
     // @Column(nullable = false, updatable = false)
     // private LocalDateTime fechaCreacion;
