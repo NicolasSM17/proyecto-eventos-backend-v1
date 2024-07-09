@@ -14,6 +14,7 @@ import pe.proyecto.eventos.repository.IUsuarioRepository;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -34,7 +35,7 @@ public class AuthenticationService {
                 .apellido(request.getApellido())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .roles(List.of(usuarioRol))
+                .roles(Set.of(usuarioRol))
                 .build();
 
         usuarioRepository.save(usuario);
@@ -50,6 +51,7 @@ public class AuthenticationService {
         var jwtToken = jwtService.generateToken(claims, user);
 
         return AuthenticationResponse.builder()
+                .usuario(user)
                 .token(jwtToken)
                 .build();
     }

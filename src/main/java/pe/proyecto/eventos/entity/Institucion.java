@@ -1,5 +1,6 @@
 package pe.proyecto.eventos.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,5 +21,6 @@ public class Institucion {
     private String imagenUrl;
 
     @OneToMany(mappedBy = "institucion", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Evento> eventos;
 }

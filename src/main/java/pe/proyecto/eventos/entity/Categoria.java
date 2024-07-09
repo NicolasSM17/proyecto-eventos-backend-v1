@@ -1,5 +1,6 @@
 package pe.proyecto.eventos.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,5 +19,6 @@ public class Categoria {
     private String nombre;
 
     @ManyToMany(mappedBy = "categorias")
+    @JsonIgnore
     private List<Evento> eventos;
 }
