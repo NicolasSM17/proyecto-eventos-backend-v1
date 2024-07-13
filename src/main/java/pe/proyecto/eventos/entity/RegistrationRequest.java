@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @Builder
@@ -19,6 +21,15 @@ public class RegistrationRequest {
     @NotEmpty(message = "apellido es obligatorio")
     @NotBlank(message = "apellido es obligatorio")
     private String apellido;
+
+    @NotEmpty(message = "fecha de nacimiento es obligatorio")
+    @NotBlank(message = "fecha de nacimiento es obligatorio")
+    private Date fechaNacimiento;
+
+    @NotEmpty(message = "telefono es obligatorio")
+    @NotBlank(message = "telefono es obligatorio")
+    @Size(min = 9, max = 9, message = "El numero de celular debe tener 9 caracteres como minimo")
+    private String telefono;
 
     @Email(message = "Email no tiene el formato correcto")
     @NotEmpty(message = "Email es obligatorio")

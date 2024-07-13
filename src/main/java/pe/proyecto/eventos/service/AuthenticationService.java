@@ -33,6 +33,8 @@ public class AuthenticationService {
         var usuario = Usuario.builder()
                 .nombre(request.getNombre())
                 .apellido(request.getApellido())
+                .telefono(request.getTelefono())
+                .fechaNacimiento(request.getFechaNacimiento())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .roles(Set.of(usuarioRol))

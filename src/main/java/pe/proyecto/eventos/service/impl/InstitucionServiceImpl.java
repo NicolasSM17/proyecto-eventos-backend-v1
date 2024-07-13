@@ -31,7 +31,10 @@ public class InstitucionServiceImpl implements InstitucionService {
     @Override
     public Institucion actualizar(Integer id, Institucion institucion) {
         Institucion institucionBD = institucionRepository.findById(id).get();
-        /* TODO */
+
+        institucionBD.setNombre(institucion.getNombre());
+        institucionBD.setImagenUrl(institucion.getImagenUrl());
+
         return institucionRepository.save(institucionBD);
     }
 
