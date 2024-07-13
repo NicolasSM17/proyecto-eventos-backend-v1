@@ -31,7 +31,9 @@ public class CategoriaServiceImpl implements ICategoriaService {
     @Override
     public Categoria actualizar(Integer id, Categoria categoria) {
         Categoria categoriaBD = categoriaRepository.findById(id).get();
-        /* TODO */
+
+        categoriaBD.setNombre(categoria.getNombre());
+
         return categoriaRepository.save(categoriaBD);
     }
 
