@@ -15,7 +15,7 @@ public class CategoriaController {
     @Autowired
     private ICategoriaService categoriaService;
 
-    @GetMapping
+    @GetMapping("/listar")
     public ResponseEntity<List<Categoria>> listar(){
         return new ResponseEntity<>(categoriaService.listar(), HttpStatus.OK);
     }

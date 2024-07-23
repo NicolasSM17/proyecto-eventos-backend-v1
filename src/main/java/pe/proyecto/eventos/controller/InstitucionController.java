@@ -15,7 +15,7 @@ public class InstitucionController {
     @Autowired
     private InstitucionService institucionService;
 
-    @GetMapping
+    @GetMapping("/listar")
     public ResponseEntity<List<Institucion>> listar(){
         return new ResponseEntity<>(institucionService.listar(), HttpStatus.OK);
     }

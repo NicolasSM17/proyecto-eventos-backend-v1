@@ -22,8 +22,6 @@ public class RegistrationRequest {
     @NotBlank(message = "apellido es obligatorio")
     private String apellido;
 
-    @NotEmpty(message = "fecha de nacimiento es obligatorio")
-    @NotBlank(message = "fecha de nacimiento es obligatorio")
     private Date fechaNacimiento;
 
     @NotEmpty(message = "telefono es obligatorio")
