@@ -63,7 +63,7 @@ public class Usuario implements UserDetails, Principal {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles.stream()
-                         .map(r -> new SimpleGrantedAuthority(r.getNombre()))
+                         .map(r -> new SimpleGrantedAuthority("ROLE_" + r.getNombre()))
                          .collect(Collectors.toList());
     }
 

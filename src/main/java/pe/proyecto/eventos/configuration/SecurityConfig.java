@@ -3,6 +3,7 @@ package pe.proyecto.eventos.configuration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -44,6 +45,7 @@ public class SecurityConfig {
                                          "/swagger-ui/**",
                                          "/webjars/**",
                                          "/swagger-ui.html").permitAll()
+                                .requestMatchers(HttpHeaders.ALLOW).permitAll()
                                                             .anyRequest()
                                                             .authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
