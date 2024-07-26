@@ -26,20 +26,20 @@ public class CategoriaController {
         return new ResponseEntity<>(categoriaService.buscarPorId(id), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Categoria> agregar(@RequestBody Categoria categoria){
         return new ResponseEntity<>(categoriaService.agregar(categoria), HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Categoria> actualizar(@PathVariable Integer id, @RequestBody Categoria categoria){
         return new ResponseEntity<>(categoriaService.actualizar(id, categoria), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void eliminar(@PathVariable Integer id){
         categoriaService.eliminar(id);
     }
