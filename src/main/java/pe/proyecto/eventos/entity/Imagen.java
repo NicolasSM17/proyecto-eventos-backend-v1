@@ -1,25 +1,26 @@
 package pe.proyecto.eventos.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Table(name = "image_model")
 public class Imagen {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NonNull
     private String nombre;
+
+    @NonNull
     private String tipo;
 
+    @NonNull
     @Column(length = 50000000)
     private byte[] picByte;
 }

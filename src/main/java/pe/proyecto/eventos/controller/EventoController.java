@@ -2,12 +2,18 @@ package pe.proyecto.eventos.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import pe.proyecto.eventos.entity.Evento;
+import pe.proyecto.eventos.entity.Imagen;
 import pe.proyecto.eventos.service.IEventosService;
 
+import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("evento")
@@ -25,9 +31,19 @@ public class EventoController {
         return new ResponseEntity<>(eventoService.buscarPorId(id), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Evento> insertar(@RequestBody Evento evento){
-        return new ResponseEntity<>(eventoService.agregar(evento), HttpStatus.CREATED);
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Evento> insertar(@RequestPart("evento") Evento evento,
+                                           @RequestPart("imageFile")MultipartFile[] file){
+        try{
+            Set<Imagen> imagenes = uploadImage(file);
+            evento.setEventoImagenes(imagenes);
+
+            return new ResponseEntity<>(eventoService.agregar(evento), HttpStatus.CREATED);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+
+            return null;
+        }
     }
 
     @PutMapping("/{id}")
@@ -38,5 +54,21 @@ public class EventoController {
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable Long id){
         eventoService.eliminar(id);
+    }
+
+    // metodo para manejar la subida de imagenes
+    public Set<Imagen> uploadImage(MultipartFile[] multipartFiles) throws IOException {
+        Set<Imagen> imagenSet = new HashSet<>();
+
+        for(MultipartFile file : multipartFiles){
+            Imagen imageModel = new Imagen(
+                    file.getOriginalFilename(),
+                    file.getContentType(),
+                    file.getBytes()
+            );
+            imagenSet.add(imageModel);
+        }
+
+        return imagenSet;
     }
 }
