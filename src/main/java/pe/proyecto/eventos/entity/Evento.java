@@ -7,6 +7,7 @@ import lombok.*;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -21,27 +22,29 @@ public class Evento {
     private String titulo;
     private String descripcion;
     private Date fecha;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-    private LocalTime hora;
-
     private String lugar;
     private String direccion;
     private String direccionUrl;
+    private Double precioEntrada;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
+    private LocalTime hora;
 
     @ManyToOne
     @JoinColumn(name = "institucion_id", nullable = false)
     private Institucion institucion;
 
     @ManyToMany
-    @JoinTable(
-            name = "evento_categoria",
-            joinColumns = @JoinColumn(name = "evento_id"),
-            inverseJoinColumns = @JoinColumn(name = "categoria_id")
-    )
+    @JoinTable(name = "evento_categoria", joinColumns = @JoinColumn(name = "evento_id"),
+            inverseJoinColumns = @JoinColumn(name = "categoria_id"))
     private List<Categoria> categorias;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario organizador;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "evento_imagenes", joinColumns = {@JoinColumn(name = "evento_id")},
+            inverseJoinColumns = {@JoinColumn(name = "imagen_id")})
+    private Set<Imagen> eventoImagenes;
 }
