@@ -22,7 +22,6 @@ public class Evento {
     private String titulo;
     private String descripcion;
     private Date fecha;
-    private String lugar;
     private String direccion;
     private String direccionUrl;
     private Double precioEntrada;
