@@ -27,7 +27,7 @@ public class Evento {
     private Double precioEntrada;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-    private LocalTime hora;
+    private LocalTime hora; 
 
     @ManyToOne
     @JoinColumn(name = "institucion_id", nullable = false)

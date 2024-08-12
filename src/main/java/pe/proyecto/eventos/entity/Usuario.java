@@ -1,5 +1,6 @@
 package pe.proyecto.eventos.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -45,6 +46,7 @@ public class Usuario implements UserDetails, Principal {
     private Set<Rol> roles;
 
     @OneToMany(mappedBy = "organizador", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Evento> eventosOrganizados;
 
     // @CreatedDate

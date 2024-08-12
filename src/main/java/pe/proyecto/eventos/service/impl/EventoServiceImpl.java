@@ -1,9 +1,14 @@
 package pe.proyecto.eventos.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import pe.proyecto.eventos.entity.Evento;
+import pe.proyecto.eventos.entity.Usuario;
 import pe.proyecto.eventos.repository.IEventoRepository;
+import pe.proyecto.eventos.repository.IUsuarioRepository;
 import pe.proyecto.eventos.service.IEventosService;
 
 import java.util.List;
@@ -12,6 +17,9 @@ import java.util.List;
 public class EventoServiceImpl implements IEventosService {
     @Autowired
     private IEventoRepository eventoRepository;
+
+    @Autowired
+    private IUsuarioRepository usuarioRepository;
 
     @Override
     public List<Evento> listar() {
@@ -25,6 +33,14 @@ public class EventoServiceImpl implements IEventosService {
 
     @Override
     public Evento agregar(Evento evento) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        Usuario usuario = usuarioRepository.findByEmail(userDetails.getUsername())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        evento.setOrganizador(usuario);
+
         return eventoRepository.save(evento);
     }
 

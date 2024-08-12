@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pe.proyecto.eventos.entity.Evento;
@@ -31,7 +32,8 @@ public class EventoController {
         return new ResponseEntity<>(eventoService.buscarPorId(id), HttpStatus.OK);
     }
 
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PreAuthorize("hasRole('USER')")
+    @PostMapping(value = {"/insertar"}, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Evento> insertar(@RequestPart("evento") Evento evento,
                                            @RequestPart("imageFile")MultipartFile[] file){
         try{
@@ -42,7 +44,7 @@ public class EventoController {
         } catch (Exception e){
             System.out.println(e.getMessage());
 
-            return null;
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
