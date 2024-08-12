@@ -22,6 +22,11 @@ public class EventoServiceImpl implements IEventosService {
     private IUsuarioRepository usuarioRepository;
 
     @Override
+    public List<Evento> findAllByOrganizadorId(Integer organizadorId) {
+        return eventoRepository.findAllByOrganizadorId(organizadorId);
+    }
+
+    @Override
     public List<Evento> listar() {
         return eventoRepository.findAll();
     }
