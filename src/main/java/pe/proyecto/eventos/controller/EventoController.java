@@ -32,6 +32,11 @@ public class EventoController {
         return new ResponseEntity<>(eventoService.findAllByOrganizadorId(organizadorId), HttpStatus.OK);
     }
 
+    @GetMapping("/eventosPorInstitucionId/{institucionId}")
+    public ResponseEntity<List<Evento>> getEventosByInstitucionId(@PathVariable Integer institucionId){
+        return new ResponseEntity<>(eventoService.listarPorInstitucionId(institucionId), HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Evento> buscarPorId(@PathVariable Long id){
         return new ResponseEntity<>(eventoService.buscarPorId(id), HttpStatus.OK);

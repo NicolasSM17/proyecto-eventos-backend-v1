@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface IEventoRepository extends JpaRepository<Evento, Long> {
     List<Evento> findAllByOrganizadorId(Integer organizadorId);
+    List<Evento> findAllByInstitucionId(Integer institucionId);
 }
