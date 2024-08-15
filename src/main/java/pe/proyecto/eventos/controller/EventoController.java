@@ -37,6 +37,11 @@ public class EventoController {
         return new ResponseEntity<>(eventoService.listarPorInstitucionId(institucionId), HttpStatus.OK);
     }
 
+    @GetMapping("/{eventoId}/similares")
+    public ResponseEntity<List<Evento>> getEventosConCategoriasSimilares(@PathVariable Long eventoId, @RequestParam Integer institucionId){
+        return new ResponseEntity<>(eventoService.findEventosConCategoriasSimilares(eventoId, institucionId), HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Evento> buscarPorId(@PathVariable Long id){
         return new ResponseEntity<>(eventoService.buscarPorId(id), HttpStatus.OK);

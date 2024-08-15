@@ -5,6 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import pe.proyecto.eventos.entity.Categoria;
 import pe.proyecto.eventos.entity.Evento;
 import pe.proyecto.eventos.entity.Usuario;
 import pe.proyecto.eventos.repository.IEventoRepository;
@@ -12,6 +13,8 @@ import pe.proyecto.eventos.repository.IUsuarioRepository;
 import pe.proyecto.eventos.service.IEventosService;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class EventoServiceImpl implements IEventosService {
@@ -29,6 +32,24 @@ public class EventoServiceImpl implements IEventosService {
     @Override
     public List<Evento> listarPorInstitucionId(Integer institucionId) {
         return eventoRepository.findAllByInstitucionId(institucionId);
+    }
+
+    @Override
+    public List<Evento> findEventosConCategoriasSimilares(Long eventoId, Integer institucionId) {
+        Evento evento = eventoRepository.findById(eventoId)
+                .orElseThrow(() -> new RuntimeException("Evento no encontrado"));
+
+        // Obtener las categorías del evento
+        List<Categoria> categorias = evento.getCategorias();
+
+        // Obtener todos los eventos de la misma institución
+        List<Evento> eventos = eventoRepository.findAllByInstitucionId(institucionId);
+
+        return eventos.stream().filter(e -> !e.getId().equals(eventoId) &&
+                                             e.getCategorias()
+                                              .stream()
+                                              .anyMatch(categorias::contains))
+                                              .collect(Collectors.toList());
     }
 
     @Override
