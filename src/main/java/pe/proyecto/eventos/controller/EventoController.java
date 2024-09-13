@@ -28,6 +28,7 @@ public class EventoController {
     }
 
     @GetMapping("/eventosPorOrganizadorId/{organizadorId}")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<List<Evento>> getEventosByOrganizadorId(@PathVariable Integer organizadorId) {
         return new ResponseEntity<>(eventoService.findAllByOrganizadorId(organizadorId), HttpStatus.OK);
     }
@@ -37,12 +38,12 @@ public class EventoController {
         return new ResponseEntity<>(eventoService.listarPorInstitucionId(institucionId), HttpStatus.OK);
     }
 
-    @GetMapping("/{eventoId}/similares")
+    @GetMapping("/similares/{eventoId}")
     public ResponseEntity<List<Evento>> getEventosConCategoriasSimilares(@PathVariable Long eventoId, @RequestParam Integer institucionId){
         return new ResponseEntity<>(eventoService.findEventosConCategoriasSimilares(eventoId, institucionId), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getEventById/{id}")
     public ResponseEntity<Evento> buscarPorId(@PathVariable Long id){
         return new ResponseEntity<>(eventoService.buscarPorId(id), HttpStatus.OK);
     }
