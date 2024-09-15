@@ -78,7 +78,15 @@ public class EventoServiceImpl implements IEventosService {
     @Override
     public Evento actualizar(Long id, Evento evento) {
         Evento eventoBD = eventoRepository.findById(id).get();
-        /* TODO */
+
+        eventoBD.setTitulo(evento.getTitulo());
+        eventoBD.setDescripcion(evento.getDescripcion());
+        eventoBD.setFecha(evento.getFecha());
+        eventoBD.setHora(evento.getHora());
+        eventoBD.setDireccion(evento.getDireccion());
+        eventoBD.setDireccionUrl(evento.getDireccionUrl());
+        eventoBD.setPrecioEntrada(evento.getPrecioEntrada());
+
         return eventoRepository.save(eventoBD);
     }
 

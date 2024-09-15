@@ -64,6 +64,7 @@ public class EventoController {
         }
     }
 
+    @PreAuthorize("hasRole('USER')")
     @PutMapping("/{id}")
     public ResponseEntity<Evento> actualizar(@PathVariable Long id, @RequestBody Evento evento){
         return new ResponseEntity<>(eventoService.actualizar(id, evento), HttpStatus.OK);
