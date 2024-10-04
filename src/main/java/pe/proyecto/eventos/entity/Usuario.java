@@ -1,6 +1,8 @@
 package pe.proyecto.eventos.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -40,6 +42,9 @@ public class Usuario implements UserDetails, Principal {
 
     private String password;
 
+    @Column(unique = true)
+    private String dni;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "USER_ROLE", joinColumns = {@JoinColumn(name = "USER_ID")},
             inverseJoinColumns = {@JoinColumn(name = "ROLE_ID")})
@@ -48,6 +53,10 @@ public class Usuario implements UserDetails, Principal {
     @OneToMany(mappedBy = "organizador", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Evento> eventosOrganizados;
+
+    @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
+    private List<Ticket> ticketsComprados;
 
     // @CreatedDate
     // @Column(nullable = false, updatable = false)

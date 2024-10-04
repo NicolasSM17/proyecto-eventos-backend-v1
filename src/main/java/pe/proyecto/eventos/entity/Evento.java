@@ -1,6 +1,8 @@
 package pe.proyecto.eventos.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -46,4 +48,7 @@ public class Evento {
     @JoinTable(name = "evento_imagenes", joinColumns = {@JoinColumn(name = "evento_id")},
             inverseJoinColumns = {@JoinColumn(name = "imagen_id")})
     private Set<Imagen> eventoImagenes;
+
+    @OneToMany(mappedBy = "evento")
+    private List<Asistente> asistentes;
 }
