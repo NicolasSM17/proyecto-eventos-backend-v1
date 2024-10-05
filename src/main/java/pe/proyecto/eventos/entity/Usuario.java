@@ -58,6 +58,9 @@ public class Usuario implements UserDetails, Principal {
     @JsonIgnore
     private List<Ticket> ticketsComprados;
 
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Tarjeta> tarjetas;
+
     // @CreatedDate
     // @Column(nullable = false, updatable = false)
     // private LocalDateTime fechaCreacion;
