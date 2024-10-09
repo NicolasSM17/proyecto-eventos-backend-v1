@@ -27,13 +27,16 @@ public class Evento {
     private String direccion;
     private String direccionUrl;
     private Double precioEntrada;
+    private boolean boost = false;
+    private boolean terminosAceptados;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-    private LocalTime hora; 
+    private LocalTime hora;
 
-    @ManyToOne
-    @JoinColumn(name = "institucion_id", nullable = false)
-    private Institucion institucion;
+    @ManyToMany
+    @JoinTable(name = "evento_institucion", joinColumns = @JoinColumn(name = "evento_id"),
+            inverseJoinColumns = @JoinColumn(name = "institucion_id"))
+    private List<Institucion> instituciones;
 
     @ManyToMany
     @JoinTable(name = "evento_categoria", joinColumns = @JoinColumn(name = "evento_id"),
@@ -51,4 +54,7 @@ public class Evento {
 
     @OneToMany(mappedBy = "evento")
     private List<Asistente> asistentes;
+
+    @OneToMany(mappedBy = "evento")
+    private List<Combo> combos;
 }

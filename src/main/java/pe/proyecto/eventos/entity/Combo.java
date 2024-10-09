@@ -1,5 +1,6 @@
 package pe.proyecto.eventos.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,4 +20,9 @@ public class Combo {
     private String titulo;
     private String descripcion;
     private Double precio;
+
+    @ManyToOne
+    @JoinColumn(name = "evento_id")
+    @JsonIgnore
+    private Evento evento;
 }

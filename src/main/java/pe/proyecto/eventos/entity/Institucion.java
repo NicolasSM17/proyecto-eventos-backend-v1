@@ -20,7 +20,7 @@ public class Institucion {
     private String nombre;
     private String imagenUrl;
 
-    @OneToMany(mappedBy = "institucion", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(mappedBy = "instituciones")
     @JsonIgnore
     private List<Evento> eventos;
 }
