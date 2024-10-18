@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 public interface IEventoRepository extends JpaRepository<Evento, Long> {
     List<Evento> findAllByOrganizadorId(Integer organizadorId);
+    Evento findByCodigoAutogenerado(String codigoAutogenerado);
     @Query("SELECT e FROM Evento e JOIN e.instituciones i WHERE i.id = :institucionId")
     List<Evento> findAllByInstitucionId(@Param("institucionId") Integer institucionId);
 }

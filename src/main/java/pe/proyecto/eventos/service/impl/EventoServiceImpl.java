@@ -12,8 +12,10 @@ import pe.proyecto.eventos.repository.IEventoRepository;
 import pe.proyecto.eventos.repository.IUsuarioRepository;
 import pe.proyecto.eventos.service.IEventosService;
 
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,6 +55,11 @@ public class EventoServiceImpl implements IEventosService {
     }
 
     @Override
+    public Evento findEventoByCodigoAutogenerado(String codigoAutogeneradoEvento) {
+        return eventoRepository.findByCodigoAutogenerado(codigoAutogeneradoEvento);
+    }
+
+    @Override
     public List<Evento> listar() {
         return eventoRepository.findAll();
     }
@@ -71,6 +78,7 @@ public class EventoServiceImpl implements IEventosService {
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         evento.setOrganizador(usuario);
+        evento.setCodigoAutogenerado(generarCodigoEvento());
 
         return eventoRepository.save(evento);
     }
@@ -95,5 +103,18 @@ public class EventoServiceImpl implements IEventosService {
         Evento eventoBD = eventoRepository.findById(id).get();
 
         eventoRepository.delete(eventoBD);
+    }
+
+    private String generarCodigoEvento() {
+        String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        SecureRandom random = new SecureRandom();
+        StringBuilder codigo = new StringBuilder(8);
+
+        for (int i = 0; i < 8; i++) {
+            int index = random.nextInt(caracteres.length());
+            codigo.append(caracteres.charAt(index));
+        }
+
+        return codigo.toString();
     }
 }

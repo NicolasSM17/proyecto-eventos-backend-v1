@@ -43,6 +43,11 @@ public class EventoController {
         return new ResponseEntity<>(eventoService.findEventosConCategoriasSimilares(eventoId, institucionId), HttpStatus.OK);
     }
 
+    @GetMapping("/eventoPorCodigoAutogenerado/{codigoEvento}")
+    public ResponseEntity<Evento> getEventoByCodigoAutogenerado(@PathVariable String codigoEvento){
+        return new ResponseEntity<>(eventoService.findEventoByCodigoAutogenerado(codigoEvento), HttpStatus.OK);
+    }
+
     @GetMapping("/getEventById/{id}")
     public ResponseEntity<Evento> buscarPorId(@PathVariable Long id){
         return new ResponseEntity<>(eventoService.buscarPorId(id), HttpStatus.OK);

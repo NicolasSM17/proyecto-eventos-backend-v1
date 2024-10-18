@@ -21,7 +21,7 @@ public class ProyectoEventosBackendV1Application {
 		return args -> {
 			createRoleIfNotFound(rolRepository, "USER");
 			createRoleIfNotFound(rolRepository, "ADMIN");
-			createRoleIfNotFound(rolRepository, "ORGANIZADOR");
+			createRoleIfNotFound(rolRepository, "DISTRIBUIDOR");
 		};
 	}
 
