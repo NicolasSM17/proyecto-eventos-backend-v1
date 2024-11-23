@@ -1,5 +1,6 @@
 package pe.proyecto.eventos.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,9 +24,10 @@ public class BoostRequest {
     @JoinColumn(name = "evento_id", nullable = false)
     private Evento evento;
 
+    /*
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "organizador_id", nullable = false)
-    private Usuario organizador;
+    private Usuario organizador;*/
 
     @Column(name = "fecha_solicitud", nullable = false)
     private LocalDate fechaSolicitud;

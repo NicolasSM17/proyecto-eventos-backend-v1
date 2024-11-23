@@ -3,6 +3,7 @@ package pe.proyecto.eventos.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pe.proyecto.eventos.entity.BoostRequest;
@@ -16,6 +17,7 @@ public class BoostRequestController {
     @Autowired
     private IBoostRequestService boostRequestService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/listar")
     public ResponseEntity<List<BoostRequest>> listar(){
         return new ResponseEntity<>(boostRequestService.listar(), HttpStatus.OK);
@@ -34,11 +36,13 @@ public class BoostRequestController {
     }
 
     @PatchMapping("/marcarPeticionComoPagado/{boostRequestId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void marcarPeticionComoPagado(@PathVariable Long boostRequestId){
         boostRequestService.marcarPeticionComoPagado(boostRequestId);
     }
 
     @PatchMapping("/marcarPeticionComoRechazado/{boostRequestId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void marcarPeticionComoRechazado(@PathVariable Long boostRequestId){
         boostRequestService.marcarPeticionComoRechazado(boostRequestId);
     }
